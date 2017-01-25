@@ -6,10 +6,18 @@
   "scripts": {
     "test": "node test/test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://git@github.com:Kevin-Xi/throttle-memo.git"
+  },
   "keywords": [
     "throttle",
     "memoization"
   ],
-  "author": "Kevin Xi",
-  "license": "MIT"
+  "author": "Kevin Xi <kevin.xgr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kevin-Xi/throttle-memo/issues"
+  },
+  "homepage": "https://github.com/Kevin-Xi/throttle-memo#throttle-memo"
 }
