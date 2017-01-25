@@ -1,5 +1,5 @@
 'use strict';
-let testTCache = require('./wrapper').getTCache('test');
+let testTMemo = require('./wrapper').getTMemo('test');
 
 let totalExe = 0, totalResp = 0;
 function asyncTask(callback) {
@@ -20,7 +20,7 @@ function reqCallback(err, result) {
 function simTaskRandomOccur() {
     for (let i = 0; i < 1e2; i++) {
         setTimeout(() => {
-            testTCache.push(req, reqCallback);
+            testTMemo.push(req, reqCallback);
         }, Math.floor(Math.random() * 5e3));
     }
 }

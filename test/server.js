@@ -2,12 +2,12 @@
 
 const http = require('http');
 const url = require('url');
-const tCacheWrapper = require('./wrapper');
+const tMemoWrapper = require('./wrapper');
 
 const PORT = 8033;
 
 // setup cleanup
-setInterval(tCacheWrapper.cleanup, 5);
+setInterval(tMemoWrapper.cleanup, 5);
 
 let server = http.createServer((req, res) => {
     let pathname = url.parse(req.url, true).pathname;
@@ -18,7 +18,7 @@ let rc = 0, tc = 0;
 let handler = {};
 handler.data = (req, res) => {
     let {num} = url.parse(req.url, true).query;
-    tCacheWrapper.getTCache(num).push(task, num, (err, result) => {
+    tMemoWrapper.getTMemo(num).push(task, num, (err, result) => {
         if (err) {
             console.error(`err`);
             res.end(0);

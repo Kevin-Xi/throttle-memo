@@ -1,19 +1,19 @@
 'use strict';
-const TCache = require('../');
+const TMemo = require('../');
 
-let tcs = {};
-exports.getTCache = function (tag) {
-    if (tcs[tag]) {
-        return tcs[tag];
+let tms = {};
+exports.getTMemo = function (tag) {
+    if (tms[tag]) {
+        return tms[tag];
     }
-    let tc = new TCache(tag);
-    tcs[tag] = tc;
-    return tc;
+    let tm = new TMemo(tag);
+    tms[tag] = tm;
+    return tm;
 }
 
 exports.cleanup = function () {
-    for (let k in tcs) {
-        if (tcs[k].size === 0) delete tcs[k];
+    for (let k in tms) {
+        if (tms[k].size === 0) delete tms[k];
     }
-    process.stdout.write(`${Object.keys(tcs).length}`);
+    process.stdout.write(`${Object.keys(tms).length}`);
 }

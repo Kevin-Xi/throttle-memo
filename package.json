@@ -1,14 +1,14 @@
 {
-  "name": "throttle-cache",
+  "name": "throttle-memo",
   "version": "1.0.0",
-  "description": "A simple throttle cache.",
+  "description": "A memoization works with async tasks that can be throttled.",
   "main": "index.js",
   "scripts": {
     "test": "node test/test"
   },
   "keywords": [
     "throttle",
-    "cache"
+    "memoization"
   ],
   "author": "Kevin Xi",
   "license": "MIT"
