@@ -1,16 +1,6 @@
 'use strict';
 
-let tcs = {};
-exports.getTCache = function (tag) {
-    if (tcs[tag]) {
-        return tcs[tag];
-    }
-    let tc = new TCache(tag);
-    tcs[tag] = tc;
-    return tc;
-}
-
-class TCache {
+module.exports = class TCache {
     constructor(tag) {
         this.tag = tag;
 
