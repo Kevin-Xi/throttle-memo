@@ -1,5 +1,5 @@
 'use strict';
-let testTCache = require('.').getTCache('test');
+let testTCache = require('./wrapper').getTCache('test');
 
 let totalExe = 0, totalResp = 0;
 function asyncTask(callback) {
