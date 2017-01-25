@@ -8,6 +8,10 @@ module.exports = class TCache {
         this._fetching = false;
     }
 
+    get size() {
+        return this._tasks.length;
+    }
+
     _run() {
         this._fetching = true;
 
