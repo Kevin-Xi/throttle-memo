@@ -14,7 +14,7 @@ function req(callback) {
 }
 
 function reqCallback(err, result) {
-    console.log(`total response ${totalResp++} time(s)`);
+    console.log(`\ttotal response ${totalResp++} time(s)`);
 }
 
 function simTaskRandomOccur() {
