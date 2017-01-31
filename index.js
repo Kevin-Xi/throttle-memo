@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = class TCache {
+module.exports = class ThrottleMemo {
     constructor(tag) {
         this.tag = tag;
 
