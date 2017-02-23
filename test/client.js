@@ -4,7 +4,7 @@ const http = require('http');
 const PORT = 8033;
 
 function simReqs() {
-    let i = 1e2;
+    let i = 1e3;
     while (i-- > 0) {
         setTimeout(() => {
             let req = http.request({

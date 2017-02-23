@@ -7,7 +7,7 @@ const tMemoWrapper = require('./wrapper');
 const PORT = 8033;
 
 // setup cleanup
-setInterval(tMemoWrapper.cleanup, 5);
+setInterval(tMemoWrapper.cleanup, 5000);
 
 let server = http.createServer((req, res) => {
     let pathname = url.parse(req.url, true).pathname;
@@ -18,7 +18,7 @@ let rc = 0, tc = 0;
 let handler = {};
 handler.data = (req, res) => {
     let {num} = url.parse(req.url, true).query;
-    tMemoWrapper.getTMemo(num).push(task, num, (err, result) => {
+    taskTMemoized(num, (err, result) => {
         if (err) {
             console.error(`err`);
             res.end(0);
@@ -29,6 +29,7 @@ handler.data = (req, res) => {
     });
 }
 
+let taskTMemoized = tMemoWrapper.tMemoize(task);
 function task(num, callback) {
     setTimeout(() => {
         console.info(`\t${tc++}. do task`);
