@@ -6,6 +6,8 @@ module.exports = class ThrottleMemo {
 
         this._tasks = [];
         this._fetching = false;
+
+        this._cache = null;
     }
 
     get size() {
@@ -15,15 +17,25 @@ module.exports = class ThrottleMemo {
     _run() {
         this._fetching = true;
 
-        let firstTask = this._tasks[0];
-        firstTask[0](...firstTask.slice(1,-1), (err, result) => {
+        if (this._cache === null) {
+            let firstTask = this._tasks[0];
+            firstTask[0](...firstTask.slice(1,-1), (err, result) => {
+                if (!err) this._cache = {err, result};
+                let curTask;
+                while (curTask = this._tasks.shift()) {
+                    setImmediate(curTask.slice(-1)[0], err, result);
+                }
+
+                this._fetching = false;
+            });
+        } else {
             let curTask;
             while (curTask = this._tasks.shift()) {
-                setImmediate(curTask.slice(-1)[0], err, result);
+                setImmediate(curTask.slice(-1)[0], this._cache.err, this._cache.result);
             }
 
             this._fetching = false;
-        });
+        }
     }
 
     push(func, ...args) {
