@@ -1,13 +1,15 @@
 'use strict';
 
 module.exports = class ThrottleMemo {
-    constructor(tag) {
+    constructor(tag, options) {
         this.tag = tag;
 
         this._tasks = [];
         this._fetching = false;
 
         this._cache = null;
+
+        this._options = Object.assign({ disableCache: false }, options || {});
     }
 
     get size() {
@@ -20,7 +22,7 @@ module.exports = class ThrottleMemo {
         if (this._cache === null) {
             let firstTask = this._tasks[0];
             firstTask[0](...firstTask.slice(1,-1), (err, result) => {
-                if (!err) this._cache = {err, result};
+                if (!this._options.disableCache && !err) this._cache = {err, result};
                 let curTask;
                 while (curTask = this._tasks.shift()) {
                     setImmediate(curTask.slice(-1)[0], err, result);
@@ -28,7 +30,7 @@ module.exports = class ThrottleMemo {
 
                 this._fetching = false;
             });
-        } else {
+        } else {    // if disableCache is true, _cache will always be null, this branch will never run
             let curTask;
             while (curTask = this._tasks.shift()) {
                 setImmediate(curTask.slice(-1)[0], this._cache.err, this._cache.result);

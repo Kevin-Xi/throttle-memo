@@ -1,5 +1,6 @@
 'use strict';
 let testTMemo = require('./wrapper').getTMemo('test');
+let testTMemoNoCache = require('./wrapper').getTMemo('testNoCache', { disableCache: true });
 
 let totalExe = 0, totalResp = 0;
 function asyncTask(callback) {
@@ -25,4 +26,14 @@ function simTaskRandomOccur() {
     }
 }
 
-simTaskRandomOccur();
+function simTaskRandomOccurNoCache() {
+    for (let i = 0; i < 1e2; i++) {
+        setTimeout(() => {
+            testTMemoNoCache.push(req, reqCallback);
+        }, Math.floor(Math.random() * 5e3))
+    }
+}
+
+// simTaskRandomOccur();
+
+simTaskRandomOccurNoCache();

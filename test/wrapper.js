@@ -2,11 +2,11 @@
 const TMemo = require('../');
 
 let tms = {};
-function getTMemo(tag) {
+function getTMemo(tag, options) {
     if (tms[tag]) {
-        return tms[tag];
+        return tms[tag];    // cannot change options once init
     }
-    let tm = new TMemo(tag);
+    let tm = new TMemo(tag, options);
     tms[tag] = tm;
     return tm;
 }
@@ -19,18 +19,18 @@ exports.cleanup = function () {
     process.stdout.write(`${Object.keys(tms).length}`);
 }
 
-exports.tMemoizeImmutable = function (func) {
+exports.tMemoizeImmutable = function (func, options) {
     return function (...args) {
         let tag = `${func.name}-` + args.slice(0, -1).join('~');
-        getTMemo(tag).push(func, ...args);
+        getTMemo(tag, options).push(func, ...args);
     }
 }
 
-exports.tMemoize = function (func) {
+exports.tMemoize = function (func, options) {
     return function (...args) {
         let id = genId(func);
         let tag = `${id}-` + args.slice(0, -1).join('~');
-        getTMemo(tag).push(func, ...args);
+        getTMemo(tag, options).push(func, ...args);
     }
 }
 
