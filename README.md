@@ -51,7 +51,13 @@ $ npm install throttle-memo
 
 ## API
 
-### push(func, ...args)
+### new ThrottleMemo(tag[, options])
+
+Init an instance with `tag` as unique identifier and `options`.
+
+The `disableCache` property of `options` is a bool value to control if the result will be kept after the wrapped function executed. Default is `false`, so next run of the same instance will directly return the result it cached.
+
+### throttleMemo.push(func, ...args)
 
 Push a function and its arguments, expect for callback when a result in the same throttle-memo is came back.
 
@@ -74,6 +80,7 @@ $ node test/client  # in other cli
 
 ## Changelog
 
++ 1.2.0: add options to enable/disable cache
 + 1.1.0: add cache for result by default
 
 ## License
